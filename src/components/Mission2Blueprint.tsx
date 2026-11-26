@@ -14,12 +14,14 @@ import {
 
 interface Mission2BlueprintProps {
   draft: WritingDraft;
+  savedDrafts: WritingDraft[];
   topic: TopicItem;
   topics: TopicItem[];
   wordVault: WordVaultItem[];
   saving: boolean;
   saveStatus: string;
   onChangeDraft: (updater: (prev: WritingDraft) => WritingDraft) => void;
+  onLoadDraft: (draft: WritingDraft) => void;
   onSaveDraft: () => Promise<void>;
   onGoPublish: () => void;
 }
@@ -73,12 +75,14 @@ function SleepyWordHelper({ text, wordVault, onUpgrade }: SleepyHelperProps) {
 
 export function Mission2Blueprint({
   draft,
+  savedDrafts,
   topic,
   topics,
   wordVault,
   saving,
   saveStatus,
   onChangeDraft,
+  onLoadDraft,
   onSaveDraft,
   onGoPublish,
 }: Mission2BlueprintProps) {
@@ -222,6 +226,22 @@ export function Mission2Blueprint({
               ))}
             </div>
           </div>
+
+          {savedDrafts.length > 0 && (
+            <div className="saved-drafts-strip">
+              <span className="chip-helper-label">📚 Saved Books:</span>
+              {savedDrafts.map((item) => (
+                <button
+                  key={item.draftId}
+                  type="button"
+                  className={`starter-pill ${item.draftId === draft.draftId ? 'saved-pill-active' : ''}`}
+                  onClick={() => onLoadDraft(item)}
+                >
+                  📘 {item.catchyTitle || 'Untitled'} ({item.wordCount}w)
+                </button>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* BLOCK 1: TITLE */}

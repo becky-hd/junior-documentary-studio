@@ -433,6 +433,65 @@ textarea {
   font-weight: 700;
 }
 
+.press-pass-code-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.press-pass-code {
+  font-size: 0.72rem;
+  background: rgba(20, 43, 77, 0.08);
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: var(--navy);
+}
+
+.copy-code-btn {
+  border: 1px solid #d4a321;
+  background: #ffffff;
+  color: var(--navy);
+  font-size: 0.7rem;
+  font-weight: 800;
+  border-radius: 6px;
+  padding: 2px 7px;
+  cursor: pointer;
+}
+
+.restore-pass-box {
+  background: #f4f8ff;
+  border: 2px dashed #9dc0f5;
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.restore-pass-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.restore-pass-row .text-input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.saved-drafts-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.saved-pill-active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #ffffff;
+}
+
 /* FORMS & INPUTS */
 .press-pass-form,
 .rescue-form {

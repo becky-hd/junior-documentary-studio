@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   fetchBootstrap,
+  restoreSessionByCode,
   saveSessionProfile,
   saveWarmupCaption,
   saveWritingDraft,
@@ -73,6 +74,20 @@ export default function App() {
     const res = await saveSessionProfile(input);
     setProfile(res.profile);
     setCurrentDraft((prev) => ({ ...prev, studentId: res.profile.studentId }));
+  }
+
+  async function handleRestorePass(passCode: string): Promise<number> {
+    const res = await restoreSessionByCode(passCode);
+    setProfile(res.profile);
+    setSubmissions(res.warmupSubmissions || []);
+    setSavedDrafts(res.drafts || []);
+    if (res.drafts && res.drafts.length > 0) {
+      setCurrentDraft(res.drafts[0]);
+      setSaveStatus(`📘 Restored "${res.drafts[0].catchyTitle || 'your saved story'}"!`);
+    } else {
+      setCurrentDraft(createBlankDraft(res.profile.favoriteTopicId || 'mimic-octopus', res.profile.studentId));
+    }
+    return (res.drafts || []).length;
   }
 
   async function handleSaveWarmup(challengeId: string, captionText: string) {
@@ -179,14 +194,20 @@ export default function App() {
             submissions={submissions}
             selectedTopicId={currentDraft.topicId}
             onSaveProfile={handleSaveProfile}
+            onRestorePass={handleRestorePass}
             onSaveWarmup={handleSaveWarmup}
             onSelectTopicAndStart={handleSelectTopicAndStart}
+            onOpenRestoredDraft={() => {
+              setActiveTab('blueprint');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           />
         )}
 
         {activeTab === 'blueprint' && activeTopic && (
           <Mission2Blueprint
             draft={currentDraft}
+            savedDrafts={savedDrafts}
             topic={activeTopic}
             topics={data.topics}
             wordVault={data.wordVault}
@@ -195,6 +216,10 @@ export default function App() {
             onChangeDraft={(updater) => {
               setSaveStatus('');
               setCurrentDraft(updater);
+            }}
+            onLoadDraft={(d) => {
+              setCurrentDraft(d);
+              setSaveStatus(`📘 Loaded "${d.catchyTitle || 'Saved Book'}"!`);
             }}
             onSaveDraft={handleSaveDraft}
             onGoPublish={() => {

@@ -20,6 +20,33 @@ export default async function handler(req, res) {
 
   try {
     const body = await readJsonBody(req);
+
+    // Optional recovery flow: restore an existing Explorer Press Pass by its server-issued student_id
+    // TODO(security): For multi-classroom production deployments, replace Pass Code recovery with OAuth 2.0 / OIDC.
+    const restoreCode = cleanText(body.restoreStudentId, 48);
+    if (restoreCode) {
+      if (!/^stu_[a-f0-9]{16,32}$/.test(restoreCode)) {
+        sendJson(res, 400, {
+          error: 'Pass Code should look like stu_3016efc658519efb56b2 (from StudentProfiles in your Sheet).',
+        });
+        return;
+      }
+
+      const existing = await loadBootstrapData(restoreCode);
+      if (!existing.profile) {
+        sendJson(res, 404, { error: 'No Explorer Press Pass found with that Pass Code.' });
+        return;
+      }
+
+      setSessionCookie(req, res, restoreCode);
+      sendJson(res, 200, {
+        profile: existing.profile,
+        drafts: existing.drafts || [],
+        warmupSubmissions: existing.warmupSubmissions || [],
+      });
+      return;
+    }
+
     const authorName = cleanText(body.authorName, 40);
     if (!authorName) {
       sendJson(res, 400, { error: 'Please type your Explorer Name first!' });
@@ -49,7 +76,11 @@ export default async function handler(req, res) {
     });
 
     setSessionCookie(req, res, studentId);
-    sendJson(res, 200, { profile });
+    sendJson(res, 200, {
+      profile,
+      drafts: existingData?.drafts || [],
+      warmupSubmissions: existingData?.warmupSubmissions || [],
+    });
   } catch (err) {
     if (err?.message === 'PAYLOAD_TOO_LARGE') {
       sendJson(res, 413, { error: 'Request too large.' });
