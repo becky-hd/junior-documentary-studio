@@ -79,26 +79,39 @@ textarea {
   font-size: 3rem;
 }
 
-/* HEADER / PASSPORT BAR */
-.passport-header {
+/* HEADER / PASSPORT BANNER (scrolls away naturally!) */
+.passport-banner {
   background: var(--navy);
   color: #ffffff;
-  border-bottom: 5px solid var(--gold);
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  box-shadow: 0 6px 20px rgba(20, 43, 77, 0.2);
 }
 
 .passport-top-row {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 14px 20px 10px;
+  padding: 12px 20px 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+}
+
+/* COMPACT STICKY MISSION NAV (auto-folds away when scrolling down!) */
+.mission-nav-bar {
+  background: var(--navy);
+  border-bottom: 4px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 6px 18px rgba(20, 43, 77, 0.18);
+  transition: transform 0.22s ease, opacity 0.22s ease;
+  will-change: transform;
+}
+
+.mission-nav-folded {
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .brand-lockup {
@@ -269,6 +282,12 @@ textarea {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.mission-tab-short {
+  display: none;
+  font-size: 0.76rem;
+  font-weight: 800;
 }
 
 .mission-pill-count {
@@ -1621,7 +1640,6 @@ textarea {
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
-  .mission-nav,
   .topic-grid,
   .transition-bank-grid,
   .library-grid {
@@ -1646,7 +1664,102 @@ textarea {
 }
 
 @media (max-width: 640px) {
-  .mission-nav,
+  .passport-top-row {
+    padding: 10px 12px 8px;
+    gap: 8px;
+  }
+
+  .brand-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 1.25rem;
+  }
+
+  .brand-kicker {
+    font-size: 0.64rem;
+  }
+
+  .brand-title {
+    font-size: 1rem;
+  }
+
+  .passport-meta {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .explorer-pill {
+    padding: 4px 10px 4px 6px;
+    gap: 6px;
+  }
+
+  .explorer-avatar {
+    font-size: 1.15rem;
+  }
+
+  .explorer-pill-text strong {
+    font-size: 0.8rem;
+  }
+
+  .explorer-pill-text span {
+    display: none;
+  }
+
+  .star-counter {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+  }
+
+  .star-label {
+    display: none;
+  }
+
+  .db-status-btn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .mission-nav {
+    padding: 6px 10px 8px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .mission-tab {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6px 4px;
+    gap: 2px;
+    border-radius: 10px;
+  }
+
+  .mission-tab-emoji {
+    font-size: 1.15rem;
+  }
+
+  .mission-tab-step,
+  .mission-tab-label,
+  .mission-pill-count {
+    display: none;
+  }
+
+  .mission-tab-short {
+    display: block;
+  }
+
+  .main-container {
+    padding: 14px 12px 48px;
+  }
+
+  .journal-card,
+  .blueprint-block {
+    padding: 16px;
+  }
+
   .topic-grid,
   .hook-power-grid,
   .transition-input-row,
