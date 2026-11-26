@@ -48,23 +48,13 @@ export async function saveSessionProfile(input: {
   favoriteTopicId: string;
 }): Promise<{
   profile: StudentProfile;
-  drafts?: WritingDraft[];
-  warmupSubmissions?: WarmupSubmission[];
+  drafts: WritingDraft[];
+  warmupSubmissions: WarmupSubmission[];
+  restored: boolean;
 }> {
   return apiFetch('/api/session', {
     method: 'POST',
     body: JSON.stringify(input),
-  });
-}
-
-export async function restoreSessionByCode(restoreStudentId: string): Promise<{
-  profile: StudentProfile;
-  drafts: WritingDraft[];
-  warmupSubmissions: WarmupSubmission[];
-}> {
-  return apiFetch('/api/session', {
-    method: 'POST',
-    body: JSON.stringify({ restoreStudentId }),
   });
 }
 

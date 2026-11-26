@@ -2,8 +2,7 @@ import {
   checkMethod,
   checkRateLimit,
   cleanText,
-  generateId,
-  getVerifiedSession,
+  deriveExplorerStudentId,
   readJsonBody,
   sendJson,
   setSessionCookie,
@@ -20,33 +19,6 @@ export default async function handler(req, res) {
 
   try {
     const body = await readJsonBody(req);
-
-    // Optional recovery flow: restore an existing Explorer Press Pass by its server-issued student_id
-    // TODO(security): For multi-classroom production deployments, replace Pass Code recovery with OAuth 2.0 / OIDC.
-    const restoreCode = cleanText(body.restoreStudentId, 48);
-    if (restoreCode) {
-      if (!/^stu_[a-f0-9]{16,32}$/.test(restoreCode)) {
-        sendJson(res, 400, {
-          error: 'Pass Code should look like stu_3016efc658519efb56b2 (from StudentProfiles in your Sheet).',
-        });
-        return;
-      }
-
-      const existing = await loadBootstrapData(restoreCode);
-      if (!existing.profile) {
-        sendJson(res, 404, { error: 'No Explorer Press Pass found with that Pass Code.' });
-        return;
-      }
-
-      setSessionCookie(req, res, restoreCode);
-      sendJson(res, 200, {
-        profile: existing.profile,
-        drafts: existing.drafts || [],
-        warmupSubmissions: existing.warmupSubmissions || [],
-      });
-      return;
-    }
-
     const authorName = cleanText(body.authorName, 40);
     if (!authorName) {
       sendJson(res, 400, { error: 'Please type your Explorer Name first!' });
@@ -61,9 +33,11 @@ export default async function handler(req, res) {
     const avatarEmoji = validateAllowList(body.avatarEmoji, ALLOWED_AVATARS, ALLOWED_AVATARS[0]);
     const favoriteTopicId = cleanText(body.favoriteTopicId || 'mimic-octopus', 60) || 'mimic-octopus';
 
-    const existingSession = getVerifiedSession(req);
-    const studentId = existingSession?.studentId || generateId('stu');
-    const existingData = existingSession ? await loadBootstrapData(studentId) : null;
+    // Deterministic Explorer Pass Code from (Explorer Name + Explorer Avatar + Documentary Role)
+    // TODO(security): For multi-classroom production deployments, replace combo Press Pass sessions with OAuth 2.0 / OIDC.
+    const studentId = deriveExplorerStudentId(authorName, avatarEmoji, explorerTitle);
+    const existingData = await loadBootstrapData(studentId);
+    const existed = Boolean(existingData?.profile);
     const existingStars = existingData?.profile?.totalStars || 10;
 
     const profile = await upsertProfile({
@@ -71,7 +45,7 @@ export default async function handler(req, res) {
       authorName,
       explorerTitle,
       avatarEmoji,
-      favoriteTopicId,
+      favoriteTopicId: existingData?.profile?.favoriteTopicId || favoriteTopicId,
       totalStars: Math.max(existingStars, 10),
     });
 
@@ -80,6 +54,7 @@ export default async function handler(req, res) {
       profile,
       drafts: existingData?.drafts || [],
       warmupSubmissions: existingData?.warmupSubmissions || [],
+      restored: existed,
     });
   } catch (err) {
     if (err?.message === 'PAYLOAD_TOO_LARGE') {

@@ -8,16 +8,16 @@ interface Mission1HookProps {
   warmups: WarmupChallenge[];
   submissions: WarmupSubmission[];
   selectedTopicId: string;
+  savedDraftCount: number;
   onSaveProfile: (input: {
     authorName: string;
     explorerTitle: string;
     avatarEmoji: string;
     favoriteTopicId: string;
-  }) => Promise<void>;
-  onRestorePass: (passCode: string) => Promise<number>;
+  }) => Promise<{ restored: boolean; draftCount: number }>;
   onSaveWarmup: (challengeId: string, captionText: string) => Promise<void>;
   onSelectTopicAndStart: (topicId: string) => void;
-  onOpenRestoredDraft: () => void;
+  onOpenSavedDraft: () => void;
 }
 
 const SPARKLE_CHIPS = ['Whoa! ', 'Believe it or not, ', 'SNAP! ', 'Did you know '];
@@ -28,22 +28,17 @@ export function Mission1Hook({
   warmups,
   submissions,
   selectedTopicId,
+  savedDraftCount,
   onSaveProfile,
-  onRestorePass,
   onSaveWarmup,
   onSelectTopicAndStart,
-  onOpenRestoredDraft,
+  onOpenSavedDraft,
 }: Mission1HookProps) {
   const [authorName, setAuthorName] = useState(profile?.authorName || '');
   const [explorerTitle, setExplorerTitle] = useState(profile?.explorerTitle || EXPLORER_TITLES[0]);
   const [avatarEmoji, setAvatarEmoji] = useState(profile?.avatarEmoji || AVATAR_OPTIONS[0].emoji);
   const [savingPass, setSavingPass] = useState(false);
   const [passMessage, setPassMessage] = useState('');
-  const [restoreOpen, setRestoreOpen] = useState(false);
-  const [restoreCode, setRestoreCode] = useState('');
-  const [restoring, setRestoring] = useState(false);
-  const [restoreMsg, setRestoreMsg] = useState('');
-  const [copiedCode, setCopiedCode] = useState(false);
 
   const [activeWarmupIdx, setActiveWarmupIdx] = useState(0);
   const currentWarmup = warmups[activeWarmupIdx] || warmups[0];
@@ -70,13 +65,23 @@ export function Mission1Hook({
     setSavingPass(true);
     setPassMessage('');
     try {
-      await onSaveProfile({
+      const result = await onSaveProfile({
         authorName: authorName.trim(),
         explorerTitle,
         avatarEmoji,
         favoriteTopicId: selectedTopicId,
       });
-      setPassMessage('🎉 Press Pass Activated! +10 Explorer Stars!');
+      if (result.restored && result.draftCount > 0) {
+        setPassMessage(
+          `🎉 Welcome back, ${authorName.trim()}! Loaded ${result.draftCount} saved book${
+            result.draftCount === 1 ? '' : 's'
+          }!`
+        );
+      } else if (result.restored) {
+        setPassMessage(`🎉 Welcome back, ${authorName.trim()}! Your Press Pass & stars are loaded!`);
+      } else {
+        setPassMessage('🎉 Press Pass Activated! +10 Explorer Stars!');
+      }
     } catch (err) {
       setPassMessage(err instanceof Error ? err.message : 'Could not save Press Pass.');
     } finally {
@@ -115,40 +120,6 @@ export function Mission1Hook({
     }));
   }
 
-  async function handleRestoreSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = restoreCode.trim();
-    if (!trimmed) {
-      setRestoreMsg('Paste your Explorer Pass Code (e.g. stu_3016efc658519efb56b2).');
-      return;
-    }
-    setRestoring(true);
-    setRestoreMsg('');
-    try {
-      const draftCount = await onRestorePass(trimmed);
-      setRestoreMsg(
-        draftCount > 0
-          ? `🎉 Pass restored with ${draftCount} saved book${draftCount === 1 ? '' : 's'}!`
-          : '🎉 Explorer Press Pass restored!'
-      );
-      if (draftCount > 0) {
-        onOpenRestoredDraft();
-      }
-    } catch (err) {
-      setRestoreMsg(err instanceof Error ? err.message : 'Could not restore Press Pass.');
-    } finally {
-      setRestoring(false);
-    }
-  }
-
-  function handleCopyPassCode() {
-    if (!profile?.studentId || !navigator.clipboard) return;
-    navigator.clipboard.writeText(profile.studentId).then(() => {
-      setCopiedCode(true);
-      setTimeout(() => setCopiedCode(false), 2000);
-    });
-  }
-
   return (
     <div className="mission-stack">
       {/* STEP 1: PRESS PASS */}
@@ -158,7 +129,8 @@ export function Mission1Hook({
             <span className="step-badge badge-teal">STEP 1 • 30 SECONDS</span>
             <h2 className="section-title">Claim Your Junior Author Press Pass</h2>
             <p className="section-sub">
-              Every real documentary author starts with an official press badge!
+              Pick the same <strong>Name + Avatar + Role</strong> on any phone or computer to
+              automatically load your stars &amp; saved books!
             </p>
           </div>
           {profile && (
@@ -171,16 +143,6 @@ export function Mission1Hook({
                 <div>
                   <div className="press-pass-name">{profile.authorName}</div>
                   <div className="press-pass-role">{profile.explorerTitle}</div>
-                  <div className="press-pass-code-row">
-                    <code className="press-pass-code">{profile.studentId}</code>
-                    <button
-                      type="button"
-                      className="copy-code-btn"
-                      onClick={handleCopyPassCode}
-                    >
-                      {copiedCode ? '✅ Copied' : '📋 Copy'}
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -242,45 +204,19 @@ export function Mission1Hook({
           <div className="form-actions-row">
             <button type="submit" className="btn-primary btn-teal" disabled={savingPass}>
               {savingPass
-                ? 'Printing Pass...'
+                ? 'Loading Pass...'
                 : profile
-                  ? '✨ Update My Press Pass'
+                  ? '✨ Open / Switch Press Pass'
                   : '🪪 Print My Press Pass (+10 ⭐)'}
             </button>
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={() => setRestoreOpen((v) => !v)}
-            >
-              🔑 {restoreOpen ? 'Hide Restore' : 'Restore Saved Books'}
-            </button>
+            {savedDraftCount > 0 && (
+              <button type="button" className="btn-primary btn-gold" onClick={onOpenSavedDraft}>
+                📚 Open My Saved Book ({savedDraftCount}) →
+              </button>
+            )}
             {passMessage && <span className="inline-feedback">{passMessage}</span>}
           </div>
         </form>
-
-        {restoreOpen && (
-          <form className="restore-pass-box" onSubmit={handleRestoreSubmit}>
-            <label htmlFor="restore-code-input" className="field-label">
-              🔑 Switching devices? Enter your Explorer Pass Code (<code>student_id</code> from your
-              Google Sheet) to load all your saved drafts:
-            </label>
-            <div className="restore-pass-row">
-              <input
-                id="restore-code-input"
-                type="text"
-                maxLength={48}
-                className="text-input"
-                placeholder="e.g. stu_3016efc658519efb56b2"
-                value={restoreCode}
-                onChange={(e) => setRestoreCode(e.target.value)}
-              />
-              <button type="submit" className="btn-primary btn-navy" disabled={restoring}>
-                {restoring ? 'Loading...' : '📚 Restore Books'}
-              </button>
-            </div>
-            {restoreMsg && <span className="inline-feedback">{restoreMsg}</span>}
-          </form>
-        )}
       </section>
 
       {/* STEP 2: INSTANT HOOK MINI-TASK */}

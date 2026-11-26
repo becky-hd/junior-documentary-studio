@@ -285,6 +285,16 @@ export function generateId(prefix) {
   return `${prefix}_${crypto.randomBytes(10).toString('hex')}`;
 }
 
+export function deriveExplorerStudentId(authorName, avatarEmoji, explorerTitle) {
+  const normalized = [
+    String(authorName || '').trim().toLowerCase().replace(/\s+/g, ' '),
+    String(avatarEmoji || '').trim(),
+    String(explorerTitle || '').trim().toLowerCase().replace(/\s+/g, ' '),
+  ].join('|');
+  const hash = crypto.createHash('sha256').update(normalized, 'utf8').digest('hex').slice(0, 20);
+  return `stu_${hash}`;
+}
+
 export function sendJson(res, status, data) {
   setSecurityHeaders(res);
   res.statusCode = status;

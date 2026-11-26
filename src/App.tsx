@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   fetchBootstrap,
-  restoreSessionByCode,
   saveSessionProfile,
   saveWarmupCaption,
   saveWritingDraft,
@@ -70,24 +69,18 @@ export default function App() {
     explorerTitle: string;
     avatarEmoji: string;
     favoriteTopicId: string;
-  }) {
+  }): Promise<{ restored: boolean; draftCount: number }> {
     const res = await saveSessionProfile(input);
-    setProfile(res.profile);
-    setCurrentDraft((prev) => ({ ...prev, studentId: res.profile.studentId }));
-  }
-
-  async function handleRestorePass(passCode: string): Promise<number> {
-    const res = await restoreSessionByCode(passCode);
     setProfile(res.profile);
     setSubmissions(res.warmupSubmissions || []);
     setSavedDrafts(res.drafts || []);
     if (res.drafts && res.drafts.length > 0) {
       setCurrentDraft(res.drafts[0]);
-      setSaveStatus(`📘 Restored "${res.drafts[0].catchyTitle || 'your saved story'}"!`);
+      setSaveStatus(`📘 Loaded "${res.drafts[0].catchyTitle || 'your saved story'}"!`);
     } else {
-      setCurrentDraft(createBlankDraft(res.profile.favoriteTopicId || 'mimic-octopus', res.profile.studentId));
+      setCurrentDraft((prev) => ({ ...prev, studentId: res.profile.studentId }));
     }
-    return (res.drafts || []).length;
+    return { restored: Boolean(res.restored), draftCount: (res.drafts || []).length };
   }
 
   async function handleSaveWarmup(challengeId: string, captionText: string) {
@@ -193,11 +186,11 @@ export default function App() {
             warmups={data.warmups}
             submissions={submissions}
             selectedTopicId={currentDraft.topicId}
+            savedDraftCount={savedDrafts.length}
             onSaveProfile={handleSaveProfile}
-            onRestorePass={handleRestorePass}
             onSaveWarmup={handleSaveWarmup}
             onSelectTopicAndStart={handleSelectTopicAndStart}
-            onOpenRestoredDraft={() => {
+            onOpenSavedDraft={() => {
               setActiveTab('blueprint');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
