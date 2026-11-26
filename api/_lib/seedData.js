@@ -1,0 +1,178 @@
+export const DEFAULT_SPREADSHEET_ID = '1ZXGI2h9wErEprRag-yKT8gv6PpBXZoygiQQ59x_2gcI';
+
+export const ALLOWED_EXPLORER_TITLES = [
+  'Wildlife Detective',
+  'Deep-Sea Explorer',
+  'Space Reporter',
+  'Time-Traveling Historian',
+  'Earth Scientist',
+  'Creature Specialist',
+];
+
+export const ALLOWED_AVATARS = ['🦊', '🦉', '🐙', '🦕', '🚀', '🦋'];
+
+export const ALLOWED_HOOK_STYLES = [
+  'Mind-Blowing Question',
+  'Sound-Effect Action',
+  'Weird-But-True Fact',
+  'Imagine-This Scene',
+];
+
+export const SEED_TOPICS = [
+  {
+    topicId: 'mimic-octopus',
+    title: 'The Mimic Octopus',
+    emoji: '🐙',
+    category: 'Ocean Wildlife',
+    theme: 'ocean',
+    hookFact: 'This sneaky sea creature can disguise itself as 15 different ocean animals in under a second!',
+    facts: [
+      'Lives in warm tropical seas in Southeast Asia and grows about 2 feet long.',
+      'Can imitate over 15 sea animals—including lionfish, flatfish, and striped venomous sea snakes!',
+      'Changes both its skin color and texture in less than a second using special pigment cells.',
+      'Scientists did not discover the mimic octopus until 1998 because its disguises worked so well!',
+    ],
+    vocab: ['camouflage', 'disguise', 'predator', 'tentacles', 'tropical'],
+    modelTitle: "The Ocean's Greatest Shape-Shifter",
+    modelHook: 'Have you ever heard of a sea creature that can disguise itself as fifteen different animals?',
+    modelTopicSentence: 'Meet the mimic octopus, one of the smartest and sneakiest animals in the ocean.',
+  },
+  {
+    topicId: 'tardigrades',
+    title: 'Tardigrades (Water Bears)',
+    emoji: '🐻',
+    category: 'Microscopic Explorers',
+    theme: 'space',
+    hookFact: 'A microscopic creature smaller than a grain of sand survived a trip to outer space without air!',
+    facts: [
+      'Microscopic eight-legged animals that look like chubby gummy bears under a microscope.',
+      'Can survive boiling heat, freezing polar ice, and crushing deep-sea pressure.',
+      'In 2007, scientists launched tardigrades into outer space—and many survived in the vacuum of space!',
+      "When water dries up, they curl into a tiny sleeping ball called a 'tun' for years until rain returns.",
+    ],
+    vocab: ['microscopic', 'indestructible', 'extreme', 'hibernate', 'outer space'],
+    modelTitle: 'Tiny Astronauts of the Microscopic World',
+    modelHook: "Believe it or not, one of Earth's toughest explorers is smaller than the dot on this letter i!",
+    modelTopicSentence: 'Tardigrades, also called water bears, are microscopic animals with unbelievable survival superpowers.',
+  },
+  {
+    topicId: 'venus-flytraps',
+    title: 'Venus Flytraps',
+    emoji: '🪴',
+    category: 'Wild Plants',
+    theme: 'jungle',
+    hookFact: 'This meat-eating plant can actually COUNT so raindrops never trick it into snapping shut!',
+    facts: [
+      'A carnivorous plant that grows naturally in wet bogs in North and South Carolina.',
+      'Its jaw-like leaves snap shut in less than half a second when an insect crawls inside.',
+      'It counts touches: two tiny trigger hairs must be brushed within 20 seconds to spring the trap!',
+      'Digests a bug over 5 to 10 days using special plant juices, then reopens like brand new.',
+    ],
+    vocab: ['carnivorous', 'trigger hairs', 'bog', 'digest', 'ambush'],
+    modelTitle: 'Watch Out: The Plant That Hunts!',
+    modelHook: 'SNAP! In less than half a second, a hungry green plant just caught its afternoon lunch.',
+    modelTopicSentence: 'The Venus flytrap is an astonishing carnivorous plant that traps insects like a tiny jungle hunter.',
+  },
+  {
+    topicId: 'ancient-egypt',
+    title: 'Ancient Egyptian Mummies & Cats',
+    emoji: '🏺',
+    category: 'Ancient History',
+    theme: 'desert',
+    hookFact: 'Archaeologists found 3,000-year-old jars of honey in Egyptian tombs that are still safe to eat!',
+    facts: [
+      'Ancient Egyptians adored cats and believed they brought good luck and protected royal homes.',
+      'It took about 70 days to make a mummy using a natural drying salt called natron.',
+      'Egyptians even mummified beloved pet cats so they could travel to the afterlife together!',
+      'Scribes wrote in picture-symbols called hieroglyphs carved into temple walls and papyrus scrolls.',
+    ],
+    vocab: ['pharaoh', 'archaeologist', 'natron', 'pyramid', 'hieroglyphs'],
+    modelTitle: "Secrets of Ancient Egypt's Royal Tombs",
+    modelHook: 'Imagine stepping inside a shadowy 4,000-year-old pyramid filled with golden treasures and sacred cats.',
+    modelTopicSentence: 'Ancient Egypt was a dazzling civilization famous for its pyramids, mummies, and deep love for cats.',
+  },
+  {
+    topicId: 'volcanoes',
+    title: "Volcanoes: Earth's Fiery Mountains",
+    emoji: '🌋',
+    category: 'Earth Science',
+    theme: 'volcano',
+    hookFact: "Over 75% of Earth's active volcanoes sit in a giant glowing horseshoe called the Ring of Fire!",
+    facts: [
+      "A volcano is an opening in Earth's crust where hot melted rock called magma bursts out as lava.",
+      'Fresh lava can reach over 2,000 degrees Fahrenheit—hot enough to glow bright orange at night!',
+      "Volcanoes don't just erupt; they also BUILD land—the Hawaiian Islands grew from underwater eruptions.",
+      'Volcanic ash makes nearby soil super rich so lush rainforests and farms grow on volcano slopes.',
+    ],
+    vocab: ['magma', 'eruption', 'Ring of Fire', 'crust', 'volcanic island'],
+    modelTitle: "Inside Earth's Fiery Mountain Builders",
+    modelHook: 'BOOM! Glowing rivers of melted rock shoot into the sky as a volcano wakes from a century-long nap.',
+    modelTopicSentence: 'Volcanoes are mighty geological wonders that reshape our planet and even build brand-new islands.',
+  },
+  {
+    topicId: 'deep-sea-glow',
+    title: 'Glowing Deep-Sea Creatures',
+    emoji: '🪼',
+    category: 'Deep Ocean',
+    theme: 'deepsea',
+    hookFact: 'Down in the pitch-black midnight zone, over 75% of sea creatures make their own living light!',
+    facts: [
+      'Deep below the waves where sunlight never reaches, animals create light through bioluminescence.',
+      'The deep-sea anglerfish dangles a glowing fishing lure right in front of its nose to attract snacks.',
+      'Some glowing squids spray clouds of sparkling blue light instead of dark ink to confuse predators!',
+      'Crystal jellies and vampire squids flash rainbow waves along their bodies to signal danger.',
+    ],
+    vocab: ['bioluminescence', 'midnight zone', 'anglerfish', 'predator', 'luminous'],
+    modelTitle: 'Lanterns of the Midnight Ocean',
+    modelHook: 'Imagine diving two miles below the ocean waves where living creatures shine like underwater stars.',
+    modelTopicSentence: 'In the pitch-black deep sea, extraordinary animals use glowing light to hunt, hide, and communicate.',
+  },
+];
+
+export const SEED_WARMUPS = [
+  {
+    challengeId: 'warmup-octopus',
+    badgeLabel: 'Ocean Rescue #1',
+    sleepySentence: 'Octopuses live in the ocean and have hearts.',
+    realFact: 'Octopuses have THREE hearts, NINE brains, and bright BLUE blood!',
+    hintPowerup: "Try starting with 'Whoa!' or 'Did you know...?'",
+    exampleCaption: 'Whoa! An octopus pumps bright blue blood with THREE hearts and thinks with NINE brains!',
+  },
+  {
+    challengeId: 'warmup-honey',
+    badgeLabel: 'History Rescue #2',
+    sleepySentence: 'Honey is a sweet food made by bees.',
+    realFact: 'Honey NEVER spoils! Scientists found 3,000-year-old honey in Egyptian tombs that is still safe to eat!',
+    hintPowerup: "Try a Mind-Blowing Question or 'Believe it or not!'",
+    exampleCaption: 'Believe it or not, honey lasts forever—even 3,000-year-old pyramid honey is still edible today!',
+  },
+  {
+    challengeId: 'warmup-flytrap',
+    badgeLabel: 'Jungle Rescue #3',
+    sleepySentence: 'Venus flytraps are green plants.',
+    realFact: 'A Venus flytrap can COUNT! A bug must touch its tiny trigger hairs twice in 20 seconds before the trap snaps shut!',
+    hintPowerup: "Try starting with a Sound Effect like 'SNAP!'",
+    exampleCaption: 'SNAP! This clever meat-eating plant counts to two before trapping its buzzing snack!',
+  },
+  {
+    challengeId: 'warmup-lightning',
+    badgeLabel: 'Weather Rescue #4',
+    sleepySentence: 'Lightning happens during storms and is hot.',
+    realFact: 'A bolt of lightning is FIVE TIMES hotter than the surface of the sun!',
+    hintPowerup: 'Try comparing it to something shocking!',
+    exampleCaption: 'ZAP! A single dazzling bolt of lightning burns five times hotter than the surface of the sun!',
+  },
+];
+
+export const SEED_WORD_VAULT = [
+  { wordId: 'w1', sleepyWord: 'big', upgrades: ['colossal', 'gigantic', 'towering', 'massive'], actionVerbs: ['towers over', 'stretches'], exampleSentence: 'A colossal blue whale stretches longer than two school buses.' },
+  { wordId: 'w2', sleepyWord: 'small', upgrades: ['microscopic', 'tiny', 'miniature', 'bite-sized'], actionVerbs: ['shrinks', 'curls', 'hides'], exampleSentence: 'A microscopic water bear curls into a tiny indestructible ball.' },
+  { wordId: 'w3', sleepyWord: 'fast', upgrades: ['lightning-quick', 'rapid', 'speedy', 'swift'], actionVerbs: ['darts', 'rockets', 'zips'], exampleSentence: 'The cheetah rockets across the grassland at lightning-quick speed.' },
+  { wordId: 'w4', sleepyWord: 'cool', upgrades: ['astonishing', 'remarkable', 'dazzling', 'brilliant'], actionVerbs: ['amazes', 'dazzles', 'reveals'], exampleSentence: 'Scientists discovered a remarkable glowing squid in the deep sea.' },
+  { wordId: 'w5', sleepyWord: 'weird', upgrades: ['bizarre', 'extraordinary', 'mysterious', 'unusual'], actionVerbs: ['baffles', 'surprises'], exampleSentence: 'This bizarre creature has three hearts and bright blue blood.' },
+  { wordId: 'w6', sleepyWord: 'scary', upgrades: ['fierce', 'venomous', 'fearless', 'mighty'], actionVerbs: ['prowls', 'strikes', 'warns'], exampleSentence: 'A fierce Komodo dragon prowls through the island brush.' },
+  { wordId: 'w7', sleepyWord: 'eat', upgrades: ['devour', 'feast on', 'gulp', 'nibble'], actionVerbs: ['captures', 'traps', 'hunts'], exampleSentence: 'The hungry flytrap snaps shut to feast on an unlucky beetle.' },
+  { wordId: 'w8', sleepyWord: 'smart', upgrades: ['clever', 'ingenious', 'crafty', 'skilled'], actionVerbs: ['outsmarts', 'solves', 'tricks'], exampleSentence: 'Clever octopuses unscrew glass jars to reach a tasty snack.' },
+  { wordId: 'w9', sleepyWord: 'good', upgrades: ['incredible', 'superb', 'spectacular', 'awesome'], actionVerbs: ['shines', 'thrives', 'excels'], exampleSentence: 'Ancient Egyptians built spectacular stone pyramids along the Nile.' },
+  { wordId: 'w10', sleepyWord: 'nice', upgrades: ['fascinating', 'wonderful', 'vibrant', 'charming'], actionVerbs: ['delights', 'sparkles', 'glows'], exampleSentence: 'Vibrant coral reefs shelter thousands of fascinating sea creatures.' },
+];
