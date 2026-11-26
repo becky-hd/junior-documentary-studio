@@ -1075,6 +1075,92 @@ textarea {
   font-size: 2rem;
 }
 
+.fact-photo-section {
+  display: grid;
+  gap: 8px;
+}
+
+.fact-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fact-photo-card {
+  position: relative;
+  border: 2px solid #e6d39c;
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  background: #fffdf6;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.14s ease, border-color 0.14s ease;
+}
+
+.fact-photo-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal);
+}
+
+.fact-photo-hero {
+  grid-column: 1 / -1;
+}
+
+.fact-photo-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.fact-photo-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: rgba(20, 43, 77, 0.86);
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.fact-photo-caption {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--navy);
+  padding: 6px 8px;
+  line-height: 1.25;
+}
+
+.photo-lightbox-card {
+  background: #ffffff;
+  border-radius: 18px;
+  max-width: 680px;
+  width: 100%;
+  border: 3px solid var(--navy);
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+}
+
+.photo-lightbox-img {
+  width: 100%;
+  max-height: 68vh;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-lightbox-alt {
+  padding: 14px 18px;
+  font-size: 0.94rem;
+  color: var(--muted);
+  background: var(--gold-soft);
+  font-weight: 700;
+}
+
 .fact-sidebar-note {
   font-size: 0.85rem;
   color: var(--muted);
@@ -1656,6 +1742,14 @@ textarea {
 
   .fact-sidebar {
     position: static;
+  }
+
+  .fact-photo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fact-photo-hero {
+    grid-column: auto;
   }
 
   .avatar-grid {

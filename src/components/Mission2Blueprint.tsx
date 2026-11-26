@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { TopicItem, WordVaultItem, WritingDraft } from '../types';
+import { TOPIC_FACT_IMAGES, type FactImageItem } from '../data/topicImages';
 import {
   HOOK_SUPERPOWERS,
   MODEL_MIMIC_OCTOPUS,
@@ -83,6 +84,8 @@ export function Mission2Blueprint({
 }: Mission2BlueprintProps) {
   const [showModel, setShowModel] = useState(true);
   const [showFactPack, setShowFactPack] = useState(true);
+  const [zoomedPhoto, setZoomedPhoto] = useState<FactImageItem | null>(null);
+  const factPhotos = TOPIC_FACT_IMAGES[topic.topicId] || TOPIC_FACT_IMAGES['mimic-octopus'];
 
   const filledBlocks = countFilledBlocks(draft);
   const wordCount = countDraftWords(draft);
@@ -535,6 +538,30 @@ export function Mission2Blueprint({
                 <h3>{topic.title}</h3>
               </div>
             </div>
+
+            <div className="fact-photo-section">
+              <div className="mini-kicker">📸 FIELD PHOTOS (TAP TO ZOOM)</div>
+              <div className="fact-photo-grid">
+                {factPhotos.map((img, idx) => (
+                  <button
+                    key={img.src}
+                    type="button"
+                    className={`fact-photo-card ${idx === 0 ? 'fact-photo-hero' : ''}`}
+                    onClick={() => setZoomedPhoto(img)}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="fact-photo-img"
+                      loading="lazy"
+                    />
+                    <span className="fact-photo-badge">{img.factBadge}</span>
+                    <span className="fact-photo-caption">{img.caption}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <p className="fact-sidebar-note">
               Read these real facts, then put them in <strong>YOUR OWN WORDS</strong> inside your
               Blueprint!
@@ -556,6 +583,34 @@ export function Mission2Blueprint({
             </div>
           </div>
         </aside>
+      )}
+
+      {zoomedPhoto && (
+        <div
+          className="modal-backdrop no-print"
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoomedPhoto.caption}
+          onClick={() => setZoomedPhoto(null)}
+        >
+          <div className="photo-lightbox-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>
+                📸 {zoomedPhoto.factBadge}: {zoomedPhoto.caption}
+              </h3>
+              <button
+                type="button"
+                className="modal-close-btn"
+                onClick={() => setZoomedPhoto(null)}
+                aria-label="Close photo"
+              >
+                ✕
+              </button>
+            </div>
+            <img src={zoomedPhoto.src} alt={zoomedPhoto.alt} className="photo-lightbox-img" />
+            <p className="photo-lightbox-alt">{zoomedPhoto.alt}</p>
+          </div>
+        </div>
       )}
     </div>
   );
