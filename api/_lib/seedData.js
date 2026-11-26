@@ -12,7 +12,6 @@ export const ALLOWED_EXPLORER_TITLES = [
 export const ALLOWED_AVATARS = ['🦊', '🦉', '🐙', '🦕', '🚀', '🦋'];
 
 export const ALLOWED_HOOK_STYLES = [
-  'Mind-Blowing Question',
   'Sound-Effect Action',
   'Weird-But-True Fact',
   'Imagine-This Scene',
@@ -34,7 +33,7 @@ export const SEED_TOPICS = [
     ],
     vocab: ['camouflage', 'disguise', 'predator', 'tentacles', 'tropical'],
     modelTitle: "The Ocean's Greatest Shape-Shifter",
-    modelHook: 'Have you ever heard of a sea creature that can disguise itself as fifteen different animals?',
+    modelHook: 'WHOOSH! In a single second, one clever sea creature just transformed into a striped venomous sea snake!',
     modelTopicSentence: 'Meet the mimic octopus, one of the smartest and sneakiest animals in the ocean.',
   },
   {
@@ -143,7 +142,7 @@ export const SEED_WARMUPS = [
     badgeLabel: 'History Rescue #2',
     sleepySentence: 'Honey is a sweet food made by bees.',
     realFact: 'Honey NEVER spoils! Scientists found 3,000-year-old honey in Egyptian tombs that is still safe to eat!',
-    hintPowerup: "Try a Mind-Blowing Question or 'Believe it or not!'",
+    hintPowerup: "Try starting with 'Believe it or not!' or a bold surprise!",
     exampleCaption: 'Believe it or not, honey lasts forever—even 3,000-year-old pyramid honey is still edible today!',
   },
   {

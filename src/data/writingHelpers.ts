@@ -20,12 +20,6 @@ export const AVATAR_OPTIONS = [
 
 export const HOOK_SUPERPOWERS = [
   {
-    name: 'Mind-Blowing Question',
-    emoji: '❓',
-    tip: "Ask a question that makes the reader say 'WAIT, WHAT?!'",
-    example: 'Have you ever met an animal that can turn itself into a sea snake in one second?',
-  },
-  {
     name: 'Sound-Effect Action',
     emoji: '💥',
     tip: 'Start with a vivid sound right inside the scene!',
@@ -57,7 +51,7 @@ export const TRANSITION_OPTIONS = {
 
 export const MODEL_MIMIC_OCTOPUS = {
   catchyTitle: "The Ocean's Greatest Shape-Shifter",
-  hookSentence: 'Have you ever heard of a sea creature that can disguise itself as fifteen different animals?',
+  hookSentence: 'WHOOSH! In a single second, one clever sea creature just transformed into a striped venomous sea snake!',
   topicSentence: 'Meet the mimic octopus, one of the smartest and sneakiest animals in the ocean.',
   fact1: 'First, the mimic octopus can change both its skin color and its body shape in seconds.',
   zoom1: 'For example, it can flatten its arms to glide like a poisonous flatfish across the sandy seafloor.',
@@ -87,7 +81,7 @@ export function createBlankDraft(topicId: string, studentId = ''): WritingDraft 
     studentId,
     topicId,
     catchyTitle: '',
-    hookStyle: 'Mind-Blowing Question',
+    hookStyle: 'Sound-Effect Action',
     hookSentence: '',
     topicSentence: '',
     t1: 'First,',

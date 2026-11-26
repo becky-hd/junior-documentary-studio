@@ -224,7 +224,7 @@ function rowToDraft(r) {
     studentId: String(r[1] || ''),
     topicId: String(r[2] || 'mimic-octopus'),
     catchyTitle: String(r[3] || ''),
-    hookStyle: String(r[4] || 'Mind-Blowing Question'),
+    hookStyle: String(r[4] || 'Sound-Effect Action'),
     hookSentence: String(r[5] || ''),
     topicSentence: String(r[6] || ''),
     t1: String(r[7] || 'First,'),
