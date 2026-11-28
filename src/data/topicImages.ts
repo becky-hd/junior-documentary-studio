@@ -126,4 +126,24 @@ export const TOPIC_FACT_IMAGES: Record<string, FactImageItem[]> = {
       factBadge: 'Fact #4',
     },
   ],
+  'movie-hexed': [
+    {
+      src: '/images/movie-hexed/fact1.jpg',
+      alt: 'A swirling violet-and-gold magical portal opening into an enchanted city of towers and floating lanterns',
+      caption: 'Portal to the realm of Hexe',
+      factBadge: 'Fact #1–2',
+    },
+    {
+      src: '/images/movie-hexed/fact2.jpg',
+      alt: 'A whimsical fluffy cat familiar with a glowing third eye sitting beside sparkling potion bottles',
+      caption: 'Quirky three-eyed cat familiar',
+      factBadge: 'Fact #3',
+    },
+    {
+      src: '/images/movie-hexed/fact3.jpg',
+      alt: 'An animation studio drawing desk with pencil sketches, paint palettes, and glowing spell sparkles',
+      caption: 'Behind-the-scenes animation magic',
+      factBadge: 'Fact #4',
+    },
+  ],
 };

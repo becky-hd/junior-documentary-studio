@@ -126,6 +126,24 @@ export const SEED_TOPICS = [
     modelHook: 'Imagine diving two miles below the ocean waves where living creatures shine like underwater stars.',
     modelTopicSentence: 'In the pitch-black deep sea, extraordinary animals use glowing light to hunt, hide, and communicate.',
   },
+  {
+    topicId: 'movie-hexed',
+    title: "Inside Disney's Movie: Hexed",
+    emoji: '✨',
+    category: 'Movie Documentary',
+    theme: 'magic',
+    hookFact: "Disney's 65th animated movie blasts a regular teenager and her mom through a portal into a hidden realm of witches, spells, and a three-eyed cat!",
+    facts: [
+      "Hexed is Walt Disney Animation Studios' 65th animated feature film, released in theaters in November 2026.",
+      "The story follows Billie Doe and her overprotective mom Alice after Billie's hidden magic opens a portal to the secret realm of Hexe.",
+      'Along the way, they team up with Beef Roger Crummchuk—a quirky three-eyed cat familiar—to face the sinister Queen Celeste!',
+      "Disney artists researched classics like Fantasia and The Sword in the Stone in the Animation Research Library to design Hexe's glowing spells.",
+    ],
+    vocab: ['portal', 'realm', 'familiar', 'animation', 'enchanted'],
+    modelTitle: "Behind the Magic of Disney's Hexed",
+    modelHook: 'WHOOSH! One burst of hidden magic just blasted a regular teenager and her mom straight through a glowing portal!',
+    modelTopicSentence: "Disney's 65th animated movie, Hexed, blends family teamwork, quirky creatures, and behind-the-scenes animation magic.",
+  },
 ];
 
 export const SEED_WARMUPS = [
@@ -160,6 +178,14 @@ export const SEED_WARMUPS = [
     realFact: 'A bolt of lightning is FIVE TIMES hotter than the surface of the sun!',
     hintPowerup: 'Try comparing it to something shocking!',
     exampleCaption: 'ZAP! A single dazzling bolt of lightning burns five times hotter than the surface of the sun!',
+  },
+  {
+    challengeId: 'warmup-hexed',
+    badgeLabel: 'Movie Rescue #5 ✨',
+    sleepySentence: 'Hexed is an animated movie about a girl and her mom.',
+    realFact: "In Disney's 65th animated movie Hexed, Billie accidentally blasts open a portal to a secret witch realm and teams up with her mom and a quirky three-eyed cat!",
+    hintPowerup: "Try starting with a Sound Effect like 'WHOOSH!' or 'ZAP!'",
+    exampleCaption: 'WHOOSH! One accidental burst of magic blasts Billie, her mom, and a quirky three-eyed cat straight into a secret enchanted realm!',
   },
 ];
 

@@ -62,7 +62,7 @@ export const MODEL_MIMIC_OCTOPUS = {
   closingSentence: 'Without a doubt, the mimic octopus proves that nature is full of brilliant actors waiting to be discovered.',
 };
 
-export const STICKER_PALETTE = ['🐙', '🪼', '🌋', '🪴', '🏺', '🐻', '🚀', '⭐', '🔎', '✨', '🦋', '🐚'];
+export const STICKER_PALETTE = ['🐙', '🪼', '🌋', '🪴', '🏺', '🐻', '🚀', '✨', '🔮', '🐱', '🎬', '⭐'];
 
 export const CHECKLIST_LABELS = [
   'My title makes a reader curious to read more.',
